@@ -27,10 +27,10 @@ class BinarySearchTree {
         return node;
       }
 
-      if (node.data > data) {
-        node.left = add(node.left, data);
-      } else {
+      if (data > node.data) {
         node.right = add(node.right, data);
+      } else {
+        node.left = add(node.left, data);
       }
 
       return node;
@@ -49,7 +49,7 @@ class BinarySearchTree {
         return true;
       }
 
-      return (node.data > data) ? search(node.left, data) : search(node.right, data);
+      return (data > node.data) ? search(node.right, data) : search(node.left, data);
     }
   }
 
@@ -65,7 +65,7 @@ class BinarySearchTree {
         return node;
       }
 
-      return (node.data > data) ? search(node.left, data) : search(node.right, data);
+      return (data > node.data) ? search(node.right, data) : search(node.left, data);
     }
   }
 
@@ -77,11 +77,11 @@ class BinarySearchTree {
         return null;
       }
 
-      if (node.data > data) {
-        node.left = removeNode(node.left, data);
-        return node;
-      } else if (node.data < data) {
+      if (data > node.data) {
         node.right = removeNode(node.right, data);
+        return node;
+      } else if (data < node.data) {
+        node.left = removeNode(node.left, data);
         return node;
       } else {
         if (!node.left && !node.right) {
@@ -97,10 +97,10 @@ class BinarySearchTree {
         }
 
         let maxFromLeft = node.left;
-        while (maxFromLeft) {
-          maxFromLeft = node.left;
+        while (maxFromLeft.right) {
+          maxFromLeft = maxFromLeft.right;
         }
-        node.data = maxFromLeft;
+        node.data = maxFromLeft.data;
 
         node.left = removeNode(node.left, maxFromLeft.data)
 
